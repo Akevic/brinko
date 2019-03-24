@@ -1,0 +1,11 @@
+.pattern-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  margin-top: 1rem;
+}
+
+.pattern-holder > h3 {
+  align-self: center;
+}
