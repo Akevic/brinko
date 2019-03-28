@@ -9,8 +9,7 @@ class Register extends Component {
     this.state = {
       name: '',
       email: '',
-      password: '',
-      success: false
+      password: ''
     }
   }
 
@@ -36,21 +35,7 @@ class Register extends Component {
         email: this.state.email,
         password: this.state.password
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data === 'success') {
-            this.setState({ success: true })
-          }
-        })
     })
-  }
-
-  signedIn (e) {
-    if (this.state.success === true) {
-      return
-    } else {
-      e.preventDefault()
-    }
   }
 
   render () {
@@ -77,7 +62,7 @@ class Register extends Component {
                   </div>
                 </fieldset>
                 <div className='link-holder'>
-                  <Link onClick={this.signedIn} className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='/'>Register</Link>
+                  <Link onClick={this.onSubmitRegister} className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='/'>Register</Link>
                 </div>
               </form>
             </main>
