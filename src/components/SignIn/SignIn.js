@@ -4,10 +4,32 @@ import { Link } from 'react-router-dom'
 import Navigation from '../Navigation/Navigation'
 
 class SignIn extends Component {
-  componentDidMount () {
-    fetch('http://localhost:3000')
-      .then(response => response.json())
-      .then(console.log)
+  constructor(props) {
+    super(props)
+    this.state = {
+      signInEmail: '',
+      signInPassword: ''
+    }
+  }
+
+  // === SAVE EMAIL ===
+  onEmailChange = (e) => {
+    this.setState({ signInEmail: e.target.value })
+  }
+
+  onPasswordChange = (e) => {
+    this.setState({ signInPassword: e.target.value })
+  }
+
+  onSubmitSignIn = () => {
+    fetch('http://localhost:3000/signin', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword
+      })
+    })
   }
 
   render () {
@@ -22,15 +44,15 @@ class SignIn extends Component {
                   <legend className='f1 fw6 ph0 mh0 center'>Sign In</legend>
                   <div className='mt3'>
                     <label className='db fw6 lh-copy f6' >Email</label>
-                    <input className='pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='email' name='email-address' id='email-address' />
+                    <input onChange={this.onEmailChange} className='pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='email' name='email-address' id='email-address' />
                   </div>
                   <div className='mv3'>
                     <label className='db fw6 lh-copy f6' >Password</label>
-                    <input className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='password' name='password' id='password' />
+                    <input onChange={this.onPasswordChange} className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='password' name='password' id='password' />
                   </div>
                 </fieldset>
                 <div className='link-holder'>
-                  <Link className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='home'>Sign In</Link>
+                  <Link onClick={this.onSubmitSignIn} className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='home'>Sign In</Link>
                   {/* <input className='b ph3 pv2 input-reset ba b--black bg-transparent grow   pointer f6 dib' type='submit' value='Sign in' /> */}
                 </div>
               </form>
