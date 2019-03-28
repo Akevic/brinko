@@ -4,10 +4,53 @@ import { Link } from 'react-router-dom'
 import Navigation from '../Navigation/Navigation'
 
 class Register extends Component {
-  componentDidMount () {
-    fetch('http://localhost:3000')
-      .then(response => response.json())
-      .then(console.log)
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      success: false
+    }
+  }
+
+  // === SAVE EMAIL ===
+  onNameChange = (e) => {
+    this.setState({ name: e.target.value })
+  }
+
+  onEmailChange = (e) => {
+    this.setState({ email: e.target.value })
+  }
+
+  onPasswordChange = (e) => {
+    this.setState({ password: e.target.value })
+  }
+
+  onSubmitRegister = () => {
+    fetch('http://localhost:3000/register', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data === 'success') {
+            this.setState({ success: true })
+          }
+        })
+    })
+  }
+
+  signedIn (e) {
+    if (this.state.success === true) {
+      return
+    } else {
+      e.preventDefault()
+    }
   }
 
   render () {
@@ -22,19 +65,19 @@ class Register extends Component {
                   <legend className='f1 fw6 ph0 mh0 center'>Register</legend>
                   <div className='mv3'>
                     <label className='db fw6 lh-copy f6' >Name</label>
-                    <input className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='text' name='name' id='name' />
+                    <input onChange={this.onNameChange} className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='text' name='name' id='name' />
                   </div>
                   <div className='mt3'>
                     <label className='db fw6 lh-copy f6' >Email</label>
-                    <input className='pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='email' name='email-address' id='email-address' />
+                    <input onChange={this.onEmailChange} className='pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='email' name='email-address' id='email-address' />
                   </div>
                   <div className='mv3'>
-                    <label className='db fw6 lh-copy f6' >Password</label>
-                    <input className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='password' name='password' id='password' />
+                    <label className='db fw6 lh-copy f6'>Password</label>
+                    <input onChange={this.onPasswordChange} className='b pa2 input-reset ba bg-transparent hover-bg-black  hover-white w-50' type='password' name='password' id='password' />
                   </div>
                 </fieldset>
                 <div className='link-holder'>
-                  <Link className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='/'>Register</Link>
+                  <Link onClick={this.signedIn} className='b ph3 pv2 input-reset ba b--black black bg-transparent grow pointer f6 dib' to='/'>Register</Link>
                 </div>
               </form>
             </main>
