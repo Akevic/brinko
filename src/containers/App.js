@@ -49,7 +49,7 @@ class App extends Component {
     try {
       const res = await app.models.predict({ id: 'fish', version: 'befeead777a14ce7b27aa38b48be2534' }, this.state.image)
 
-      if (!res.outputs) {
+      if (res.outputs.length !== 0) {
         patternName = res.outputs[0].data.concepts[0].name 
         patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
         console.log(patternName)
@@ -57,6 +57,7 @@ class App extends Component {
         let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
         this.setState({ patternText: patternText})
       } else {
+        console.log(res)
         this.setState({ patternText: 'I am not able to identify this fish at the moment' })
       }
     } catch (err) {
