@@ -47,7 +47,7 @@ class App extends Component {
     let patternName
     let patternProbability
     try {
-      const res = await app.models.predict({ id: 'fish', version: 'befeead777a14ce7b27aa38b48be2534' }, this.state.image)
+      const res = await app.models.predict({ id: 'fish', version: '416d516bce854c04bc6383d62018aadd' }, this.state.image)
 
       if (res.outputs.length !== 0) {
         patternName = res.outputs[0].data.concepts[0].name 
