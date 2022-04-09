@@ -1,6 +1,6 @@
 import React from 'react'
 import Tilt from 'react-tilt'
-import logo from './logo.png'
+import logo from './logo2.svg'
 
 const Logo = () => {
   return (
