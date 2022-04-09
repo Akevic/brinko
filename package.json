@@ -5,7 +5,7 @@
   "dependencies": {
     "clarifai": "2.9.0",
     "clarifai-nodejs-grpc": "^8.0.0",
-    "i": "0.3.6",
+    "i": "0.3.7",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-particles-js": "2.5.1",
