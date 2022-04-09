@@ -5,17 +5,11 @@ import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
 import Particles from 'react-particles-js'
 import Clarifai from 'clarifai'
 import './App.css'
-// import { ClarifaiStub, grpc } from 'clarifai-nodejs-grpc'
-// const {ClarifaiStub, grpc} = require("clarifai-nodejs-grpc")
 
 const app = new Clarifai.App({
   apiKey: '0416a2bad12d45e39da79d38ea4be083'
 })
 
-// const stub = app.grpc
-
-// const metadata = stub.Metadata()
-// metadata.set("authorization", "Key YOUR_CLARIFAI_API_KEY")
 
 const particlesOptions = {
   particles: {
@@ -28,7 +22,6 @@ const particlesOptions = {
     }
   }
 }
-
 class App extends Component {
   constructor () {
     super()
@@ -70,7 +63,7 @@ class App extends Component {
         <div className='App'>
           <Particles className='particles'
             params={particlesOptions} />
-          <Navigation link='Sign Out' route='/' />
+          <Navigation link='' route='/' />
           <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit= {this.onButtonSubmit} />
           <FaceRecognition image={this.state.image} patternText={this.state.patternText} />
         </div>
