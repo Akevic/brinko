@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 import './index.css'
 import App from './containers/App'
-import SignIn from './components/SignIn/SignIn'
+// import SignIn from './components/SignIn/SignIn'
 import Register from './components/Register/Register'
 import * as serviceWorker from './serviceWorker'
 import 'tachyons'
 
 ReactDOM.render(
   <BrowserRouter>
-    <Route exact path='/' component={SignIn} />
-    <Route path='/home' component={App} />
+    <Route exact path='/' component={App} />
+    {/* <Route path='/home' component={App} /> */}
     <Route path='/register' component={Register} />
   </BrowserRouter>,
   document.getElementById('root')
