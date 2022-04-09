@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import Navigation from '../components/Navigation/Navigation'
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm'
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition'
-import './App.css'
 import Particles from 'react-particles-js'
 import Clarifai from 'clarifai'
+import './App.css'
 
 const app = new Clarifai.App({
   apiKey: '78440aba0cc6408c9dcaa2eca78e9d9d'
@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000')
+    fetch('https://melodious-marshmallow-2ae870.netlify.app:3000')
       .then(response => response.json())
       .then(console.log)
   }
