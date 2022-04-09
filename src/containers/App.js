@@ -38,35 +38,30 @@ class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch('https://melodious-marshmallow-2ae870.netlify.app:3000')
-  //     .then(response => response.json())
-  //     .then(console.log)
-  // }
-
   onInputChange = (e) => {
     const imageLink = e.target.value
     this.setState({image: imageLink})
   }
 
-  onButtonSubmit = () => {
+  onButtonSubmit = async () => {
     let patternName
     let patternProbability
-    app.models.predict(Clarifai.GENERAL_MODEL, this.state.image).then(
-      function (response) {
-        console.log(response)
-        patternName = response.outputs[0].data.concepts[0].name 
-        patternProbability = Math.round(+response.outputs[0].data.concepts[0].value * 100)
-      },
-      function (err) {
-        console.log(err)        
-      }
-      )
-      setTimeout(() => {
-        console.log(`${patternProbability}%`)
-        const patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
+    try {
+      const res = await app.models.predict({ id: 'fish', version: 'befeead777a14ce7b27aa38b48be2534' }, this.state.image)
+
+      if (!res.outputs) {
+        patternName = res.outputs[0].data.concepts[0].name 
+        patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
+        console.log(patternName)
+        console.log(patternProbability)
+        let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
         this.setState({ patternText: patternText})
-      }, 1000)
+      } else {
+        this.setState({ patternText: 'I am not able to identify this fish at the moment' })
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render () {
