@@ -34,6 +34,7 @@ class App extends Component {
   onInputChange = (e) => {
     const imageLink = e.target.value
     this.setState({image: imageLink})
+    this.setState({ patternText: '' })
   }
 
   onButtonSubmit = async () => {

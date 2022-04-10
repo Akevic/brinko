@@ -5,8 +5,12 @@ const FaceRecognition = (props) => {
   const { image, patternText } = props
   return (
     <div className='pattern-holder'>
-      <img src={image} alt={''} />
-      <h3>{patternText}</h3>
+      <div>
+        <img src={image} alt={''} />
+      </div>
+      <div>
+        <h3>{patternText}</h3>
+      </div>
     </div>
   )
 }
