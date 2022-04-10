@@ -7,6 +7,11 @@
   margin-top: 1rem;
 }
 
-/* .pattern-holder > h3 {
-  align-self: center;
-} */
+.first {
+  width: 50%;
+}
+
+.fish_image {
+  width: 100%;
+  height: auto;
+}
