@@ -50,6 +50,7 @@ class App extends Component {
         patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
         console.log(patternName)
         console.log(patternProbability)
+        patternName = patternName.replace('_', ' ')
         let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
         this.setState({ patternText: patternText})
       } else {
