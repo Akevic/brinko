@@ -41,20 +41,20 @@ class App extends Component {
     let patternProbability
     try {
       const res = await app.models.predict({ id: 'fish', version: '416d516bce854c04bc6383d62018aadd' }, this.state.image)
-      console.log(res)
 
-      if (res.outputs[0].data.outputs !== undefined) {
-        if (res.outputs.length !== 0) {
-          patternName = res.outputs[0].data.concepts[0].name 
-          patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
-          console.log(patternName)
-          console.log(patternProbability)
-          let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
-          this.setState({ patternText: patternText})
-        } else {
-          this.setState({ patternText: 'I am not able to identify this fish at the moment' })
-        }
+      if (Object.keys(res.outputs[0].data).length !== 0) {
+        console.log('nie undefined')
+        console.log(res)
+        console.log(Object.keys(res.outputs[0].data).length)
+        patternName = res.outputs[0].data.concepts[0].name 
+        patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
+        console.log(patternName)
+        console.log(patternProbability)
+        let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
+        this.setState({ patternText: patternText})
       } else {
+        console.log('undefined je')
+        console.log(res)
         this.setState({ patternText: 'I am not able to identify this fish at the moment' })
       }
     } catch (err) {
