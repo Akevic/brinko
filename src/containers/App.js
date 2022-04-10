@@ -10,7 +10,6 @@ const app = new Clarifai.App({
   apiKey: '0416a2bad12d45e39da79d38ea4be083'
 })
 
-
 const particlesOptions = {
   particles: {
     number: {
@@ -22,6 +21,7 @@ const particlesOptions = {
     }
   }
 }
+
 class App extends Component {
   constructor () {
     super()
@@ -41,16 +41,20 @@ class App extends Component {
     let patternProbability
     try {
       const res = await app.models.predict({ id: 'fish', version: '416d516bce854c04bc6383d62018aadd' }, this.state.image)
+      console.log(res)
 
-      if (res.outputs.length !== 0) {
-        patternName = res.outputs[0].data.concepts[0].name 
-        patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
-        console.log(patternName)
-        console.log(patternProbability)
-        let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
-        this.setState({ patternText: patternText})
+      if (res.outputs[0].data.outputs !== undefined) {
+        if (res.outputs.length !== 0) {
+          patternName = res.outputs[0].data.concepts[0].name 
+          patternProbability = Math.round(+res.outputs[0].data.concepts[0].value * 100)
+          console.log(patternName)
+          console.log(patternProbability)
+          let patternText = `I am ${patternProbability}% sure that image is: ${patternName}`
+          this.setState({ patternText: patternText})
+        } else {
+          this.setState({ patternText: 'I am not able to identify this fish at the moment' })
+        }
       } else {
-        console.log(res)
         this.setState({ patternText: 'I am not able to identify this fish at the moment' })
       }
     } catch (err) {
